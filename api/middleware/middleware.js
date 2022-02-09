@@ -39,12 +39,32 @@ function validateUser(req, res, next) {
   - `validateUser` validates the `body` on a request to create or update a user
   - if the request `body` lacks the required `name` field, respond with status `400` and `{ message: "missing required name field" }`
   */
- 
+  const { name } = req.body
+  if (!name || !name.trim()) {
+    res.status(400).json({
+      message: "missing required name field",
+    })
+  } else {
+    req.name = name.trim()
+    next()
+  }
   
 }
 
 function validatePost(req, res, next) {
-  
+  /*
+  - `validatePost` validates the `body` on a request to create a new post
+  - if the request `body` lacks the required `text` field, respond with status `400` and `{ message: "missing required text field" }`
+  */
+  const { text } = req.body
+  if (!text || !text.trim()) {
+    res.status(400).json({
+      message: "missing required text field",
+    })
+  } else {
+    req.text = text.trim()
+    next()
+  }
 }
 
 // do not forget to expose these functions to other modules
